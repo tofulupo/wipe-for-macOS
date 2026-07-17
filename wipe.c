@@ -24,7 +24,7 @@
 
 /*** defines */
 
-#define WIPE_VERSION "0.23"
+#define WIPE_VERSION "0.24"
 #define WIPE_DATE "2016-11-03"
 
 /* exit codes */
