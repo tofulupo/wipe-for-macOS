@@ -627,7 +627,7 @@ eta_progress(char *buf, size_t bufsiz, double frac)
     long ldays;
     int days;
     int weeks;
-    
+
     now = get_time_of_day();
     elapsed = now - eta_start_time;
 
@@ -675,7 +675,7 @@ static void
 pad(char *buf, size_t bufsiz)
 {
     size_t len;
-    
+
     len = strlen(buf);
     while (len + 1 < bufsiz)
         buf[len++] = ' ';
@@ -971,8 +971,8 @@ static int dothejob (char *fn)
             wi.current_pass = i;
 
             if (!o_silent) {
-                if (o_quick) 
-                    fprintf (stderr, "\rWipoing %.32s, pass %d in quick mode   ", fn, i);
+                if (o_quick)
+                    fprintf (stderr, "\rWiping %.32s, pass %d in quick mode   ", fn, i);
                 else
                     fprintf (stderr, "\rWiping %.32s, pass %-2d (%-2d)   ", fn, i, p[i]);
                 middle_of_line = 1;
