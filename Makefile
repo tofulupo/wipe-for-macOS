@@ -67,6 +67,14 @@ CCO_AIX=$(CFLAGS)
 CCOC_AIX=-c
 
 # --------------------------------------------------------------------------
+# macOS
+#
+
+CC_MAC=cc
+CCO_MAC=-Wall -O2 -pipe -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -DHAVE_OSYNC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
+CCOC_MAC=-c
+
+# --------------------------------------------------------------------------
 # Generic UNIX (gcc)
 #
 
@@ -115,39 +123,43 @@ CCOC_DIGITALALPHA=-c
 OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
 TARGETS=wipe wipe.tr-asc.1
 
-all	:	
+all	:
 		@echo "Please type $(MAKE) <system> where <system> can be one of:"; \
 		echo "  linux        -- for Linux (kernel 2.0.x or higher)"; \
 		echo "  sunos        -- for SunOS (tested on 5.5.1)"; \
 		echo "  aix          -- for AIX (tested on 4.2)"; \
+		echo "  macOS        -- for macOS (tested on macOS 26.5.2)"; \
 		echo "  solarissp    -- for Solaris SPARC (tested on 2.6)"; \
 		echo "  solarisx86   -- for Solaris x86 (tested on 2.6)"; \
 		echo "  freebsd      -- for FreeBSD (tested on 2.2.6-STABLE)"; \
 		echo "  digitalalpha -- for Digital/Compaq UNIX Alpha"; \
 		echo "  generic      -- for generic unix"
 
-linux	:	
+linux	:
 		$(MAKE) $(TARGETS) "CC=$(CC_LINUX)" "CCO=$(CCO_LINUX)" "CCOC=$(CCOC_LINUX)"
 
-sunos	:	
+sunos	:
 		$(MAKE) $(TARGETS) "CC=$(CC_SUNOS)" "CCO=$(CCO_SUNOS)" "CCOC=$(CCOC_SUNOS)"
 
-aix	:	
+aix	:
 		$(MAKE) $(TARGETS) "CC=$(CC_AIX)" "CCO=$(CCO_AIX)" "CCOC=$(CCOC_AIX)"
 
-freebsd	:	
+freebsd	:
 		$(MAKE) $(TARGETS) "CC=$(CC_FREEBSD)" "CCO=$(CCO_FREEBSD)" "CCOC=$(CCOC_FREEBSD)"
 
-solarissp	:	
+solarissp	:
 		$(MAKE) $(TARGETS) "CC=$(CC_SOLARISSP)" "CCO=$(CCO_SOLARISSP)" "CCOC=$(CCOC_SOLARISSP)"
 
-solarisx86	:	
+solarisx86	:
 		$(MAKE) $(TARGETS) "CC=$(CC_SOLARISX86)" "CCO=$(CCO_SOLARISX86)" "CCOC=$(CCOC_SOLARISX86)"
 
-digitalalpha	:	
+digitalalpha	:
 		$(MAKE) $(TARGETS) "CC=$(CC_DIGITALALPHA)" "CCO=$(CCO_DIGITALALPHA)" "CCOC=$(CCOC_DIGITALALPHA)"
 
-generic	:	
+macos	:
+		$(MAKE) $(TARGETS) "CC=$(CC_MAC)" "CCO=$(CCO_MAC)" "CCOC=$(CCOC_MAC)"
+
+generic	:
 		$(MAKE) $(TARGETS) "CC=$(CC_GENERIC)" "CCO=$(CCO_GENERIC)" "CCOC=$(CCOC_GENERIC)"
 
 wipe	:	$(OBJECTS)
