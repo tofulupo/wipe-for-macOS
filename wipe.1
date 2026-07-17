@@ -1,4 +1,4 @@
-.TH WIPE 1 "Sun Nov  7 09:41:23 EST 2010" "Linux" "User Commands"
+.TH WIPE 1 "November 2016" "wipe 0.24" "User Commands"
 .SH NAME
 wipe \- securely erase files from magnetic media
 .SH SYNOPSIS
@@ -8,10 +8,10 @@ wipe [options] path1 path2 ... pathn
 
 .SH "CURRENT\-VERSION"
 This manual page describes version
-.B 0.22
+.B 0.24
 of
 .B wipe
-, released November 2010.
+, released November 2016.
 
 
 .SH DESCRIPTION
@@ -164,10 +164,6 @@ random data. See option
 Sets the number of passes for quick wiping. Default is 4. This option requires -q.
 
 .TP 0.5i
-.B -a (abort on error)
-The program will exit with EXIT_FAILURE if a non-fatal error is encountered.
-
-.TP 0.5i
 .B -R (set random device OR random seed command)
 
 With this option which requires an argument you can specify an
@@ -177,6 +173,18 @@ the -S option.
 
 .TP 0.5i
 .B -S (random seed method)
+
+.TP 0.5i
+.B -b <buffer-size-lg2>
+Set the size of the individual I/O buffers by specifying its logarithm in base 2. Up to 30 of these buffers might be allocated.
+
+.TP 0.5i
+.B -P <passes>
+Set number of passes for filename wiping. Default is 1.
+
+.TP 0.5i
+.B -T <tries>
+Set maximum number of tries for free filename search; default is 10.
 
 This option takes a single-character argument, which specifies
 how the random device/random seed argument is to be used. The default random device
@@ -411,7 +419,7 @@ using the ext2fs library.
 .B Wipe
 was written by Berke Durak (to find my email address,
 just type
-.B echo berke1ouvaton2org|tr 12 @.
+.B echo berke1lambda-diode2com|tr 12 @.
 in a shell).
 
 .B Wipe
