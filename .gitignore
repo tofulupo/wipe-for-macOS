@@ -1,2 +1,5 @@
 *.o
 version.h
+.DS_Store
+wipe
+wipe.tr-asc.1
