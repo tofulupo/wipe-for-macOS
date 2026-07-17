@@ -199,4 +199,10 @@ clean	:
 install:
 	install -m755 -o root -g root wipe $(DESTDIR)/usr/bin
 
+mac-install:
+	mkdir -p $(DESTDIR)/usr/local/bin
+	mkdir -p $(DESTDIR)/usr/local/share/man/man1
+	install -m755 -o root -g wheel wipe $(DESTDIR)/usr/local/bin
+	install -m644 -o root -g wheel wipe.1 $(DESTDIR)/usr/local/share/man/man1/wipe.1
+
 .PHONY: always clean install
