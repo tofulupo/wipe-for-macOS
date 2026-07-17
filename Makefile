@@ -1,5 +1,5 @@
 # Makefile for wipe by Berke Durak
-# 
+#
 # echo berke1lambda-diode2com|tr 12 @.
 #
 # define HAVE_OSYNC if an O_SYNC bit can be specified for the open () call
@@ -34,7 +34,7 @@
 #
 # define FIND_DEVICE_SIZE_BY_BLKGETSIZE if ioctl BLKGETSIZE is available
 # for determinating the block size of a device, as under Linux.
-# 
+#
 # define SIXTYFOUR,__USE_LARGEFILE and __USE_FILE_OFFSET64 to be able to
 # wipe devices or files greater than 4Gb (works under Linux)
 # --------------------------------------------------------------------------
@@ -193,7 +193,7 @@ misc.o	:	misc.c misc.h
 wipe.tr-asc.1	:	wipe.tr.1
 			./trtur <wipe.tr.1 >wipe.tr-asc.1
 
-clean	:	
+clean	:
 		rm -f wipe $(OBJECTS) wipe.tr-asc.1 version.h
 
 install:
