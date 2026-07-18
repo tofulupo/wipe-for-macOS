@@ -169,8 +169,8 @@ wipe.o	:	wipe.c random.h misc.h version.h
 		$(CC) $(CCO) $(CCOC) wipe.c -o wipe.o
 
 version.h: always
-	    if command -v git >/dev/null 2>&1 && git rev-parse HEAD >/dev/null 2>&1 ; then \
-			git rev-parse HEAD | sed 's/.*/#define WIPE_GIT "&"/' > version.h ; \
+	    if command -v git >/dev/null 2>&1 && git rev-list --max-count=1 HEAD >/dev/null 2>&1 ; then \
+			git rev-list --max-count=1 HEAD | sed 's/.*/#define WIPE_GIT "&"/' > version.h ; \
 		else \
 		    echo '#define WIPE_GIT "(unknown, compiled without git)"' > version.h ; \
 		fi
