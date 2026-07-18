@@ -124,7 +124,7 @@ OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
 TARGETS=wipe wipe.tr-asc.1
 
 all	:
-		@echo "Please type $(MAKE) <system> where <system> can be one of:"; \
+		@echo "Build: type $(MAKE) <system> where <system> can be one of:"; \
 		echo "  linux        -- for Linux (kernel 2.0.x or higher)"; \
 		echo "  sunos        -- for SunOS (tested on 5.5.1)"; \
 		echo "  aix          -- for AIX (tested on 4.2)"; \
@@ -133,7 +133,13 @@ all	:
 		echo "  solarisx86   -- for Solaris x86 (tested on 2.6)"; \
 		echo "  freebsd      -- for FreeBSD (tested on 2.2.6-STABLE)"; \
 		echo "  digitalalpha -- for Digital/Compaq UNIX Alpha"; \
-		echo "  generic      -- for generic unix"
+		echo "  generic      -- for generic unix"; \
+		echo ""; \
+		echo "Install: after building, run"; \
+		echo "  make install                -- Linux (installs to /usr/bin)"; \
+		echo "  make PREFIX=/usr/local install -- macOS (installs to /usr/local/bin)"; \
+		echo "  make DESTDIR=/path install -- packaging (staging directory)"; \
+		echo ""
 
 linux	:
 		$(MAKE) $(TARGETS) "CC=$(CC_LINUX)" "CCO=$(CCO_LINUX)" "CCOC=$(CCOC_LINUX)"
@@ -169,10 +175,10 @@ wipe.o	:	wipe.c random.h misc.h version.h
 		$(CC) $(CCO) $(CCOC) wipe.c -o wipe.o
 
 version.h: always
-	    if command -v git >/dev/null 2>&1 && git rev-list --max-count=1 HEAD >/dev/null 2>&1 ; then \
+		if command -v git >/dev/null 2>&1 && git rev-list --max-count=1 HEAD >/dev/null 2>&1 ; then \
 			git rev-list --max-count=1 HEAD | sed 's/.*/#define WIPE_GIT "&"/' > version.h ; \
 		else \
-		    echo '#define WIPE_GIT "(unknown, compiled without git)"' > version.h ; \
+			echo '#define WIPE_GIT "(unknown, compiled without git)"' > version.h ; \
 		fi
 
 random.o	:	random.c misc.h md5.h
@@ -196,13 +202,18 @@ wipe.tr-asc.1	:	wipe.tr.1
 clean	:
 		rm -f wipe $(OBJECTS) wipe.tr-asc.1 version.h
 
-install:
-	install -m755 -o root -g root wipe $(DESTDIR)/usr/bin
+# Install paths — override per platform:
+#   macOS: make PREFIX=/usr/local install
+#   Linux: make PREFIX=/usr install  (or just make install)
+#   Other: make PREFIX=<custom> install
+PREFIX ?= /usr
+BINDIR ?= $(PREFIX)/bin
+MANDIR ?= $(PREFIX)/share/man/man1
 
-mac-install:
-	mkdir -p $(DESTDIR)/usr/local/bin
-	mkdir -p $(DESTDIR)/usr/local/share/man/man1
-	install -m755 -o root -g wheel wipe $(DESTDIR)/usr/local/bin
-	install -m644 -o root -g wheel wipe.1 $(DESTDIR)/usr/local/share/man/man1/wipe.1
+install:
+		mkdir -p $(DESTDIR)$(BINDIR)
+		mkdir -p $(DESTDIR)$(MANDIR)
+		install -m 755 wipe $(DESTDIR)$(BINDIR)/wipe
+		if [ -f wipe.1 ]; then install -m 644 wipe.1 $(DESTDIR)$(MANDIR)/wipe.1; fi
 
 .PHONY: always clean install

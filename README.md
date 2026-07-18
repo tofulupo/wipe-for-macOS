@@ -11,9 +11,10 @@ I'm maintaining this fork to keep the software usable on macOS (as good as I can
 
 - **Added `macos` target** to the Makefile with compiler flags for macOS (tested on macOS 26.5 Tahoe). Includes feature detection defines matching the existing Linux target where applicable (`HAVE_DEV_URANDOM`, `HAVE_STRCASECMP`, `HAVE_RANDOM`, `HAVE_OSYNC`).
 - **Modified `version.h` generation** — replaced the non-POSIX `which` command with `command -v` and added a guard for building outside a git repository (tarball builds).
-- **Added macOS install target** — respects SIP by installing to `/usr/local/bin` and `/usr/local/share/man/man1`.
+- **Unified install target** — replaced OS-specific install targets with a single POSIX-compliant `install` target using `PREFIX`, `BINDIR`, and `MANDIR` variables. Drops hardcoded `-o root -g root` ownership flags, eliminating the need for Debian's `050_rootless.patch`. macOS users install with `make PREFIX=/usr/local install`.
+- **POSIX-compliant install** — no GNU-isms; works with native `make` and `install` on SunOS, AIX, Solaris, FreeBSD, and other legacy Unix.
 - **Added a downstream patch** https://github.com/tyll/wipe/commit/0ad42af17b3e7745a4be07cde8ad5a0259b40d15 and https://sources.debian.org/patches/wipe/0.24-11/020_fix-warnings.patch/
-- **Modified man page and `-h` option**  Update version from 0.22 (2010) to 0.24 (November 2016), Remove `-a` option documentation (not implemented in source code), Add missing options: `-b` (buffer size), `-P` (filename passes), `-T` (search tries), Correct the obfuscated email address to match the original.
+- **Modified man page and `-h` option** — Update version from 0.22 (2010) to 0.24 (November 2016), Remove `-a` option documentation (not implemented in source code), Add missing options: `-b` (buffer size), `-P` (filename passes), `-T` (search tries), Correct the obfuscated email address to match the original.
 
 Everything else is untouched.
 
@@ -28,10 +29,19 @@ xcode-select --install
 make macos
 ```
 
-Then install as root:
+## Installing 
 
 ```console
-sudo make mac-install
+# macOS (to /usr/local/bin, SIP-safe)
+make macos && sudo make PREFIX=/usr/local install
+```
+```console
+# Linux (to /usr/bin)
+make linux && sudo make install
+```
+```console
+# Packaging/staging (Debian/RedHat)
+make linux && make install DESTDIR=/tmp/pkg-staging
 ```
 
 See the original [README](https://github.com/berke/wipe/blob/master/README) for full usage instructions.
