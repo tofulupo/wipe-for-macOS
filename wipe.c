@@ -118,7 +118,7 @@
  * equal to or greater than the stated minimum, but where the value can vary
  * depending on the file to which it is applied. The actual value supported for
  * a specific pathname shall be provided by the pathconf() (5.7.1) function.
- * 
+ *
  * This is clear that any machine supporting multiple file system types
  * and/or a network can not include this define, regardless of protection
  * by the _POSIX_SOURCE and _POSIX_C_SOURCE flags.
@@ -136,7 +136,7 @@
 
 /* P.Gutmann, in his article, was recommening to make
  * the DETERMINISTIC passes (i.e. those that don't write random data)
- * in random order, and to make 4 random passes before and after these. 
+ * in random order, and to make 4 random passes before and after these.
  *
  * Here, the deterministic and the 8 random passes are made in random
  * order, unless, of course, the "quick" mode is selected.
@@ -287,34 +287,6 @@ void signal_handler (int i)
 
 
 /* signal_handler ***/
-
-/*** fill_random_from_table */
-
-/* This function is used to create random filenames */
-
-inline static void fill_random_from_table (char *b,
-        int n, char *table, int mask)
-{
-    u32 l;
-
-    for (; n >= 4; n -= 4) {
-        l = rand_Get32 ();
-
-        *(b++) = table[l & mask]; l >>=8;
-        *(b++) = table[l & mask]; l >>=8;
-        *(b++) = table[l & mask]; l >>=8;
-        *(b++) = table[l & mask];
-    }
-
-    if (n) {
-        l = rand_Get32 ();
-        while (n--) {
-            *(b++) = table[l & mask]; l >>= 8;
-        }
-    }
-}
-
-/* fill_random_from_table ***/
 
 /*** fill_random */
 
@@ -872,7 +844,7 @@ static int dothejob (char *fn)
         return 0;
     }
 
-    /* to do a cryptographically strong random permutation on the 
+    /* to do a cryptographically strong random permutation on the
      * order of the deterministic passes, we need
      *   lg_2(NUM_DETERMINISTIC_PASSES!) bits of entropy:
      * this means about 128 bits.
@@ -1192,7 +1164,7 @@ static int dothejob (char *fn)
 
         /* try to wipe out file size by truncating at various sizes... */
 
-skip_wipe:    
+skip_wipe:
         if (S_ISREG(st.st_mode) && !o_dont_wipe_filesizes) {
             off_t s;
             u32 x;
@@ -1347,14 +1319,14 @@ int recursive (char *fn)
         }
         if (chdir (olddir)) { fnerror("chdir .."); return -1; }
         free (olddir);
-        if (!r && !o_no_remove && rmdir (fn)) { fnerror ("rmdir"); return -1; }	
+        if (!r && !o_no_remove && rmdir (fn)) { fnerror ("rmdir"); return -1; }
     } else {
         if (S_ISREG(st.st_mode)) {
             int rc = dothejob (fn);
             abort_handler = NULL;
             return rc;
         } else if (S_ISLNK(st.st_mode)) { num_symlinks ++; }
-        else { 
+        else {
             if (o_verbose) {
                 printf ("Not wiping special file %s in recursive mode\n",
                         fn);
@@ -1362,7 +1334,7 @@ int recursive (char *fn)
             }
             num_spec ++;
         }
-        if (do_remove (fn)) { fnerror ("remove"); return -1; }	
+        if (do_remove (fn)) { fnerror ("remove"); return -1; }
     }
 
     return r;
@@ -1622,7 +1594,7 @@ int main (int argc, char **argv)
                         o_quick_passes_set = 1;
                         break;
             case 'S':
-                        if (optarg[1]) 
+                        if (optarg[1])
                             reject ("'random seed method' must be single char");
                         switch (optarg[0]) {
                             case 'r':
@@ -1711,14 +1683,14 @@ int main (int argc, char **argv)
             fprintf (stderr, "Use -r option to wipe directories\n");
             exit (EXIT_FAILURE);
         }
-    } 
+    }
 
     if (o_skip_passes) {
         fprintf (stderr, "Will skip %d passes\n", o_skip_passes);
         fflush (stderr);
     }
 
-    if (!o_force) {	
+    if (!o_force) {
         char buf2[80];
         char buf[80];
         char *b = buf;
