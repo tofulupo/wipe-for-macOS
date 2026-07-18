@@ -13,7 +13,7 @@ I'm maintaining this fork to keep the software usable on macOS (as good as I can
 - **Modified `version.h` generation** — replaced the non-POSIX `which` command with `command -v` and added a guard for building outside a git repository (tarball builds).
 - **Added macOS install target** — respects SIP by installing to `/usr/local/bin` and `/usr/local/share/man/man1`.
 - **Added a downstream patch** https://github.com/tyll/wipe/commit/0ad42af17b3e7745a4be07cde8ad5a0259b40d15 and https://sources.debian.org/patches/wipe/0.24-11/020_fix-warnings.patch/
-- **Modified man page and `-h` option **  Update version from 0.22 (2010) to 0.24 (November 2016), Remove `-a` option documentation (not implemented in source code), Add missing options: `-b` (buffer size), `-P` (filename passes), `-T` (search tries), Correct the obfuscated email address to match the original.
+- **Modified man page and `-h` option**  Update version from 0.22 (2010) to 0.24 (November 2016), Remove `-a` option documentation (not implemented in source code), Add missing options: `-b` (buffer size), `-P` (filename passes), `-T` (search tries), Correct the obfuscated email address to match the original.
 
 Everything else is untouched.
 
