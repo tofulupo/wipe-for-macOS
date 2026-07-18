@@ -93,6 +93,9 @@
 #include "misc.h"
 #include "version.h"
 
+// FIX warning: implicit declaration of function ‘dirname’ [-Wimplicit-function-declaration]
+#include <libgen.h>
+
 /* includes ***/
 
 /*** more defines */
@@ -629,6 +632,8 @@ static int wipe_filename_and_remove (char *fn)
     int len;
     int r = -1;
     int fn_l, dn_l;
+    // FIX [-Wunused-but-set-variable]
+    (void)dn_l;
     char *oldname, *newname;
     char *dir, *dirc;
     dirc = strdup(fn);
