@@ -1409,7 +1409,6 @@ void usage (void)
     fprintf (stderr,
             "Usage: %s [options] files...\n"
             "Options:\n"
-            "\t\t-a Abort on error\n"
             "\t\t-b <buffer-size-lg2> Set the size of the individual i/o buffers\n"
             "\t\t\tby specifying its logarithm in base 2. Up to 30 of these\n"
             "\t\t\tbuffers might be allocated\n"
