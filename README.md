@@ -59,6 +59,25 @@ All original targets remain unchanged and should work as before:
 - macOS (new)
 - Generic Unix
 
+## Tested On
+
+| OS | Version | Architecture | Status |
+|---|---|---|---|
+| Debian GNU/Linux | 13 (trixie) | x86_64 | Tested |
+| Debian GNU/Linux | 10 (buster) | x86_64 | Tested |
+| Ubuntu | 24.04.4 LTS (Noble Numbat) | x86_64 | Tested |
+| Ubuntu | 14.04.6 LTS | x86_64 | Tested |
+| macOS | 26.5.2 (Tahoe) | ARM64 | Tested |
+| Solaris | 9 (s9_58shwp13) | SPARC32 | Tested |
+| OpenIndiana | Hipster 2026.04 | x86_64 | Pending |
+| macOS | 10.3 (Panther) | — | Pending |
+| SunOS | 5.5.1 | — | Not Tested |
+| Solaris | 2.6 | SPARC | Not Tested |
+| Solaris | 2.6 | x86 | Not Tested |
+| FreeBSD | 2.2.6-STABLE | — | Not Tested |
+| AIX | 4.2 | — | Not Tested |
+| Digital/Compaq UNIX | Alpha | Alpha | Not Tested |
+
 ## Credit
 
 All original code and design by **Berke Durak**. This fork only adds platform support and a build fix for personal use.

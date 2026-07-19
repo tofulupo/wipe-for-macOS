@@ -199,6 +199,8 @@ misc.o	:	misc.c misc.h
 wipe.tr-asc.1	:	wipe.tr.1
 			./trtur <wipe.tr.1 >wipe.tr-asc.1
 
+always	:
+
 clean	:
 		rm -f wipe $(OBJECTS) wipe.tr-asc.1 version.h
 
@@ -206,9 +208,9 @@ clean	:
 #   macOS: make PREFIX=/usr/local install
 #   Linux: make PREFIX=/usr install  (or just make install)
 #   Other: make PREFIX=<custom> install
-PREFIX ?= /usr
-BINDIR ?= $(PREFIX)/bin
-MANDIR ?= $(PREFIX)/share/man/man1
+PREFIX = /usr
+BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man/man1
 
 install:
 		mkdir -p $(DESTDIR)$(BINDIR)
