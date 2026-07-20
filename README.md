@@ -70,7 +70,7 @@ All original targets remain unchanged and should work as before:
 | macOS | 26.5.2 (Tahoe) | ARM64 | Tested |
 | Solaris | 9 (s9_58shwp13) | SPARC32 | Tested |
 | OpenIndiana | Hipster 2026.04 | x86_64 | Tested |
-| macOS | 10.3 (Panther) | — | Pending |
+| macOS | 10.3 (Panther) | — | Tested |
 | SunOS | 5.5.1 | — | Not Tested |
 | Solaris | 2.6 | SPARC | Not Tested |
 | Solaris | 2.6 | x86 | Not Tested |
