@@ -128,7 +128,7 @@ CCOC_DIGITALALPHA=-c
 
 #
 
-OBJECTS=wipe.o arcfour.o md5.o misc.o random.o compat.o
+OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
 TARGETS=wipe
 
 all	:
@@ -175,7 +175,7 @@ macos	:
 		$(MAKE) $(TARGETS) "CC=$(CC_MAC)" "CCO=$(CCO_MAC)" "CCOC=$(CCOC_MAC)"
 
 macosppc	:
-		$(MAKE) $(TARGETS) "CC=$(CC_MACPPC)" "CCO=$(CCO_MACPPC)" "CCOC=$(CCOC_MACPPC)"
+		$(MAKE) $(TARGETS) "CC=$(CC_MACPPC)" "CCO=$(CCO_MACPPC)" "CCOC=$(CCOC_MACPPC)" OBJECTS="wipe.o arcfour.o md5.o misc.o random.o compat.o"
 
 generic	:
 		$(MAKE) $(TARGETS) "CC=$(CC_GENERIC)" "CCO=$(CCO_GENERIC)" "CCOC=$(CCOC_GENERIC)"
