@@ -215,7 +215,8 @@ MANDIR = $(PREFIX)/share/man/man1
 install:
 		mkdir -p $(DESTDIR)$(BINDIR)
 		mkdir -p $(DESTDIR)$(MANDIR)
-		install -m 755 wipe $(DESTDIR)$(BINDIR)/wipe
-		if [ -f wipe.1 ]; then install -m 644 wipe.1 $(DESTDIR)$(MANDIR)/wipe.1; fi
+		cp wipe $(DESTDIR)$(BINDIR)/wipe
+		chmod 755 $(DESTDIR)$(BINDIR)/wipe
+		if [ -f wipe.1 ]; then cp wipe.1 $(DESTDIR)$(MANDIR)/wipe.1; chmod 644 $(DESTDIR)$(MANDIR)/wipe.1; fi
 
 .PHONY: always clean install
