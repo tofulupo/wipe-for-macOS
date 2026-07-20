@@ -54,7 +54,7 @@ CCOC_LINUX=-c
 #
 
 CC_SUNOS=gcc
-CCO_SUNOS=-Wall -O6 -pipe -fomit-frame-pointer
+CCO_SUNOS=-Wall -O6 -pipe -fomit-frame-pointer -Wno-format-truncation
 CCOC_SUNOS=-c
 
 
