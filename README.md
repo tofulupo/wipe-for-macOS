@@ -7,16 +7,29 @@ This is a fork of [berke/wipe](https://github.com/berke/wipe), a Unix tool for s
 I wanted to have `wipe` working on macOS. Nothing more — the goal is to keep the original software usable on modern macOS, not to redesign it.
 I'm maintaining this fork to keep the software usable on macOS (as good as I can). For any bug fixes or improvements to the core functionality, please open a ticket in the [original repo](https://github.com/berke/wipe/issues) or contribute upstream.
 
-## What changed
+## What Changed
+
+### New Targets
 
 - **Added `macos` target** to the Makefile with compiler flags for macOS (tested on macOS 26.5 Tahoe). Includes feature detection defines matching the existing Linux target where applicable (`HAVE_DEV_URANDOM`, `HAVE_STRCASECMP`, `HAVE_RANDOM`, `HAVE_OSYNC`).
-- **Modified `version.h` generation** — replaced the non-POSIX `which` command with `command -v` and added a guard for building outside a git repository (tarball builds).
+- **Added `macosppc` target** for macOS 10.3 Panther on PowerPC (G3/G4). Defines `O_DIRECTORY` to `0`, omits `-DHAVE_OSYNC`, and drops `-pipe` to reduce memory pressure.
+- **Added `openbsd` target** using native `cc`. Format-truncation warnings suppressed with `-Wno-format-truncation` (sorry); OpenBSD linker security warnings (`strcpy`/`sprintf`) are advisory.
+
+### Portability
+
+- **Changed `-O6` to `-O3` across all targets** — `-O6` was never a documented standard?; `-O3` is the fallback, I make it explicit.
 - **Unified install target** — replaced OS-specific install targets with a single POSIX-compliant `install` target using `PREFIX`, `BINDIR`, and `MANDIR` variables. Drops hardcoded `-o root -g root` ownership flags, eliminating the need for Debian's `050_rootless.patch`. macOS users install with `make PREFIX=/usr/local install`.
 - **POSIX-compliant install** — no GNU-isms; works with native `make` and `install` on SunOS, AIX, Solaris, FreeBSD, and other legacy Unix.
-- **Added a downstream patch** https://github.com/tyll/wipe/commit/0ad42af17b3e7745a4be07cde8ad5a0259b40d15 and https://sources.debian.org/patches/wipe/0.24-11/020_fix-warnings.patch/
+- **Modified `version.h` generation** — replaced the non-POSIX `which` command with `command -v` and added a guard for building outside a git repository (tarball builds).
+
+### Documentation & Patches
+
+- **Added downstream patches** https://github.com/tyll/wipe/commit/0ad42af17b3e7745a4be07cde8ad5a0259b40d15 and https://sources.debian.org/patches/wipe/0.24-11/020_fix-warnings.patch/
 - **Modified man page and `-h` option** — Update version from 0.22 (2010) to 0.24 (November 2016), Remove `-a` option documentation (not implemented in source code), Add missing options: `-b` (buffer size), `-P` (filename passes), `-T` (search tries), Correct the obfuscated email address to match the original.
 
-Everything else is untouched.
+### Compatibility Shims
+
+- **Added `compat.c` shim** providing `fdatasync()`→`fsync()` wrapper for macOS 10.3 PPC. Compiled only for the `macosppc` target via `COMMON_OBJECTS`/`MACPPC_OBJECTS` variables to avoid duplicate symbols on other platforms.
 
 ## Building
 
@@ -56,7 +69,7 @@ All original targets remain unchanged and should work as before:
 - Solaris SPARC / x86
 - FreeBSD
 - Digital/Compaq Alpha UNIX
-- macOS (new)
+- macOS
 - Generic Unix
 
 ## Tested On
@@ -68,14 +81,16 @@ All original targets remain unchanged and should work as before:
 | Ubuntu | 24.04.4 LTS (Noble Numbat) | x86_64 | Tested |
 | Ubuntu | 14.04.6 LTS | x86_64 | Tested |
 | macOS | 26.5.2 (Tahoe) | ARM64 | Tested |
-| Solaris | 9 (s9_58shwp13) | SPARC32 | Tested |
+| macOS | 10.3 (Panther) | PowerPC | Tested |
 | OpenIndiana | Hipster 2026.04 | x86_64 | Tested |
-| macOS | 10.3 (Panther) | — | Tested |
+| Solaris | 9 (s9_58shwp13) | SPARC32 | Tested |
+| FreeBSD | 15.1 | ARM64 | Tested |
+| OpenBSD | 7.9 | ARM64 | Tested |
 | SunOS | 5.5.1 | — | Not Tested |
 | Solaris | 2.6 | SPARC | Not Tested |
 | Solaris | 2.6 | x86 | Not Tested |
 | FreeBSD | 2.2.6-STABLE | — | Not Tested |
-| AIX | 4.2 | — | Not Tested |
+| AIX | 4.2 | POWER | Not Tested |
 | Digital/Compaq UNIX | Alpha | Alpha | Not Tested |
 
 ## Credit
