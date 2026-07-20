@@ -75,6 +75,14 @@ CCO_MAC=-Wall -O2 -pipe -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -DHAV
 CCOC_MAC=-c
 
 # --------------------------------------------------------------------------
+# macOS 10.x PPC
+#
+
+CC_MACPPC=cc
+CCO_MACPPC=-Wall -O2 -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DO_DIRECTORY=0 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
+CCOC_MACPPC=-c
+
+# --------------------------------------------------------------------------
 # Generic UNIX (gcc)
 #
 
@@ -120,7 +128,7 @@ CCOC_DIGITALALPHA=-c
 
 #
 
-OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
+OBJECTS=wipe.o arcfour.o md5.o misc.o random.o compat.o
 TARGETS=wipe
 
 all	:
@@ -128,7 +136,8 @@ all	:
 		echo "  linux        -- for Linux (kernel 2.0.x or higher)"; \
 		echo "  sunos        -- for SunOS (tested on 5.5.1)"; \
 		echo "  aix          -- for AIX (tested on 4.2)"; \
-		echo "  macOS        -- for macOS (tested on macOS 26.5.2)"; \
+		echo "  macos        -- for macOS (tested on macOS 26.5.2)"; \
+		echo "  macosppc     -- for macOS G3/G4 (tested on macOS 10.3)"; \
 		echo "  solarissp    -- for Solaris SPARC (tested on 2.6)"; \
 		echo "  solarisx86   -- for Solaris x86 (tested on 2.6)"; \
 		echo "  freebsd      -- for FreeBSD (tested on 2.2.6-STABLE)"; \
@@ -165,6 +174,9 @@ digitalalpha	:
 macos	:
 		$(MAKE) $(TARGETS) "CC=$(CC_MAC)" "CCO=$(CCO_MAC)" "CCOC=$(CCOC_MAC)"
 
+macosppc	:
+		$(MAKE) $(TARGETS) "CC=$(CC_MACPPC)" "CCO=$(CCO_MACPPC)" "CCOC=$(CCOC_MACPPC)"
+
 generic	:
 		$(MAKE) $(TARGETS) "CC=$(CC_GENERIC)" "CCO=$(CCO_GENERIC)" "CCOC=$(CCOC_GENERIC)"
 
@@ -195,6 +207,9 @@ md5.o	:	md5.c md5.h
 
 misc.o	:	misc.c misc.h
 		$(CC) $(CCO) $(CCOC) misc.c -o misc.o
+
+compat.o	:	compat.c
+		$(CC) $(CCO) $(CCOC) compat.c -o compat.o
 
 wipe.tr-asc.1	:	wipe.tr.1
 			./trtur <wipe.tr.1 >wipe.tr-asc.1
