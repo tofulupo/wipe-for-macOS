@@ -90,7 +90,7 @@ CCOC_GENERIC=-c
 #
 
 CC_SOLARISSP=gcc
-CCO_SOLARISSP=-Wall -O6 -pipe -fomit-frame-pointer
+CCO_SOLARISSP=-Wall -O6 -pipe -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
 CCOC_SOLARISSP=-c
 
 # --------------------------------------------------------------------------
@@ -98,7 +98,7 @@ CCOC_SOLARISSP=-c
 #
 
 CC_SOLARISX86=gcc
-CCO_SOLARISX86=-Wall -O6 -fomit-frame-pointer
+CCO_SOLARISX86=-Wall -O6 -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
 CCOC_SOLARISX86=-c
 
 # --------------------------------------------------------------------------
@@ -121,7 +121,7 @@ CCOC_DIGITALALPHA=-c
 #
 
 OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
-TARGETS=wipe wipe.tr-asc.1
+TARGETS=wipe
 
 all	:
 		@echo "Build: type $(MAKE) <system> where <system> can be one of:"; \
