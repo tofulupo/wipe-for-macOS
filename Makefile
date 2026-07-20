@@ -37,6 +37,10 @@
 #
 # define SIXTYFOUR,__USE_LARGEFILE and __USE_FILE_OFFSET64 to be able to
 # wipe devices or files greater than 4Gb (works under Linux)
+
+COMMON_OBJECTS = wipe.o arcfour.o md5.o misc.o random.o
+MACPPC_OBJECTS = $(COMMON_OBJECTS) compat.o
+
 # --------------------------------------------------------------------------
 # Linux 2.0.x
 #
@@ -128,7 +132,7 @@ CCOC_DIGITALALPHA=-c
 
 #
 
-OBJECTS=wipe.o arcfour.o md5.o misc.o random.o
+OBJECTS = $(COMMON_OBJECTS)
 TARGETS=wipe
 
 all	:
@@ -175,7 +179,7 @@ macos	:
 		$(MAKE) $(TARGETS) "CC=$(CC_MAC)" "CCO=$(CCO_MAC)" "CCOC=$(CCOC_MAC)"
 
 macosppc	:
-		$(MAKE) $(TARGETS) "CC=$(CC_MACPPC)" "CCO=$(CCO_MACPPC)" "CCOC=$(CCOC_MACPPC)" OBJECTS="wipe.o arcfour.o md5.o misc.o random.o compat.o"
+		$(MAKE) $(TARGETS) "CC=$(CC_MACPPC)" "CCO=$(CCO_MACPPC)" "CCOC=$(CCOC_MACPPC)" "OBJECTS=$(MACPPC_OBJECTS)"
 
 generic	:
 		$(MAKE) $(TARGETS) "CC=$(CC_GENERIC)" "CCO=$(CCO_GENERIC)" "CCOC=$(CCOC_GENERIC)"
