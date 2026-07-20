@@ -122,6 +122,14 @@ CCO_FREEBSD=-Wall -O6 -fomit-frame-pointer
 CCOC_FREEBSD=-c
 
 # --------------------------------------------------------------------------
+# OpenBSD (cc)
+#
+
+CC_OPENBSD=cc
+CCO_OPENBSD=-std=c99 -Wall -03 -fomit-frame-pointer -Wno-format-truncation
+CCOC_OPENBSD=-c
+
+# --------------------------------------------------------------------------
 # Digital/Compaq UNIX Alpha
 #
 # Thanks to Cyrus Durgin for this entry.
@@ -137,21 +145,22 @@ TARGETS=wipe
 
 all	:
 		@echo "Build: type $(MAKE) <system> where <system> can be one of:"; \
-		echo "  linux        -- for Linux (kernel 2.0.x or higher)"; \
-		echo "  sunos        -- for SunOS (tested on 5.5.1)"; \
-		echo "  aix          -- for AIX (tested on 4.2)"; \
-		echo "  macos        -- for macOS (tested on macOS 26.5.2)"; \
-		echo "  macosppc     -- for macOS G3/G4 (tested on macOS 10.3)"; \
-		echo "  solarissp    -- for Solaris SPARC (tested on 2.6)"; \
-		echo "  solarisx86   -- for Solaris x86 (tested on 2.6)"; \
-		echo "  freebsd      -- for FreeBSD (tested on 2.2.6-STABLE)"; \
+		echo "  linux        -- for Linux"; \
+		echo "  sunos        -- for SunOS"; \
+		echo "  aix          -- for AIX"; \
+		echo "  macos        -- for macOS"; \
+		echo "  macosppc     -- for macOS G3/G4"; \
+		echo "  solarissp    -- for Solaris SPARC"; \
+		echo "  solarisx86   -- for Solaris x86"; \
+		echo "  freebsd      -- for FreeBSD"; \
+		echo "  openbsd      -- for OpenBSD"; \
 		echo "  digitalalpha -- for Digital/Compaq UNIX Alpha"; \
 		echo "  generic      -- for generic unix"; \
 		echo ""; \
 		echo "Install: after building, run"; \
-		echo "  make install                -- Linux (installs to /usr/bin)"; \
-		echo "  make PREFIX=/usr/local install -- macOS (installs to /usr/local/bin)"; \
-		echo "  make DESTDIR=/path install -- packaging (staging directory)"; \
+		echo "  make install                    -- Linux (installs to /usr/bin)"; \
+		echo "  make PREFIX=/usr/local install  -- macOS (installs to /usr/local/bin)"; \
+		echo "  make DESTDIR=/path install      -- packaging (staging directory)"; \
 		echo ""
 
 linux	:
@@ -165,6 +174,9 @@ aix	:
 
 freebsd	:
 		$(MAKE) $(TARGETS) "CC=$(CC_FREEBSD)" "CCO=$(CCO_FREEBSD)" "CCOC=$(CCOC_FREEBSD)"
+
+openbsd	:
+		$(MAKE) $(TARGETS) "CC=$(CC_OPENBSD)" "CCO=$(CCO_OPENBSD)" "CCOC=$(CCOC_OPENBSD)"
 
 solarissp	:
 		$(MAKE) $(TARGETS) "CC=$(CC_SOLARISSP)" "CCO=$(CCO_SOLARISSP)" "CCOC=$(CCOC_SOLARISSP)"
