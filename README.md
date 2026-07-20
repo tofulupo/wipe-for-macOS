@@ -57,6 +57,34 @@ make linux && sudo make install
 make linux && make install DESTDIR=/tmp/pkg-staging
 ```
 
+### Usage Examples
+
+Securely delete a single file:
+
+  ```console
+  wipe sensitive_document.pdf
+  ```
+Recursively wipe a directory (symlinks preserved):
+
+  ```console
+  wipe -r ~/documents/private/
+  ```
+Quick wipe for speed (4 random passes, less secure):
+
+  ```console
+  wipe -q -r /tmp/cache/
+  ```
+Overwrite files in place without deleting them:
+
+  ```console
+  wipe -k -i *.log
+  ```
+Wipe with verbose progress and no confirmation prompt:
+
+  ```console
+  wipe -i -f -r /var/log/archive/
+  ```
+
 See the original [README](https://github.com/berke/wipe/blob/master/README) for full usage instructions.
 
 ## Compatibility

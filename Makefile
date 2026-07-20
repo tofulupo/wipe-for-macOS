@@ -46,7 +46,7 @@ MACPPC_OBJECTS = $(COMMON_OBJECTS) compat.o
 #
 
 CC_LINUX=gcc
-CCO_LINUX=-Wall -DHAVE_DEV_URANDOM -DHAVE_OSYNC -DHAVE_STRCASECMP -DHAVE_RANDOM -DWEAK_RC6 -DSYNC_WAITS_FOR_SYNC -DFIND_DEVICE_SIZE_BY_BLKGETSIZE -DSIXTYFOUR -D__USE_LARGEFILE -D_FILE_OFFSET_BITS=64
+CCO_LINUX=-Wall -O3 -DHAVE_DEV_URANDOM -DHAVE_OSYNC -DHAVE_STRCASECMP -DHAVE_RANDOM -DWEAK_RC6 -DSYNC_WAITS_FOR_SYNC -DFIND_DEVICE_SIZE_BY_BLKGETSIZE -DSIXTYFOUR -D__USE_LARGEFILE -D_FILE_OFFSET_BITS=64
 # default should be to turn off debugging and to turn on optimization.
 #CCO_LINUX+=-O9 -pipe -fomit-frame-pointer -finline-functions -funroll-loops -fstrength-reduce
 CCO_LINUX+=$(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
@@ -58,7 +58,7 @@ CCOC_LINUX=-c
 #
 
 CC_SUNOS=gcc
-CCO_SUNOS=-Wall -O6 -pipe -fomit-frame-pointer -Wno-format-truncation
+CCO_SUNOS=-Wall -O3 -pipe -fomit-frame-pointer -Wno-format-truncation
 CCOC_SUNOS=-c
 
 
@@ -75,7 +75,7 @@ CCOC_AIX=-c
 #
 
 CC_MAC=cc
-CCO_MAC=-Wall -O2 -pipe -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -DHAVE_OSYNC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
+CCO_MAC=-Wall -O3 -pipe -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -DHAVE_OSYNC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
 CCOC_MAC=-c
 
 # --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ CCOC_MAC=-c
 #
 
 CC_MACPPC=cc
-CCO_MACPPC=-Wall -O2 -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DO_DIRECTORY=0 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
+CCO_MACPPC=-Wall -O3 -DHAVE_DEV_URANDOM -DHAVE_STRCASECMP -DHAVE_RANDOM -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DO_DIRECTORY=0 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
 CCOC_MACPPC=-c
 
 # --------------------------------------------------------------------------
@@ -91,7 +91,7 @@ CCOC_MACPPC=-c
 #
 
 CC_GENERIC=gcc
-CCO_GENERIC=-Wall -O6 -pipe -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
+CCO_GENERIC=-Wall -O3 -pipe -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
 CCOC_GENERIC=-c
 
 # Thanks to Chris L. Mason <cmason@unixzone.com> for these:
@@ -102,7 +102,7 @@ CCOC_GENERIC=-c
 #
 
 CC_SOLARISSP=gcc
-CCO_SOLARISSP=-Wall -O6 -pipe -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
+CCO_SOLARISSP=-Wall -O3 -pipe -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
 CCOC_SOLARISSP=-c
 
 # --------------------------------------------------------------------------
@@ -110,15 +110,15 @@ CCOC_SOLARISSP=-c
 #
 
 CC_SOLARISX86=gcc
-CCO_SOLARISX86=-Wall -O6 -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
+CCO_SOLARISX86=-Wall -O3 -fomit-frame-pointer -DO_DIRECTORY=0 -lrt
 CCOC_SOLARISX86=-c
 
 # --------------------------------------------------------------------------
-# FreeBSD 2.2.6-STABLE
+# FreeBSD
 #
 
 CC_FREEBSD=gcc
-CCO_FREEBSD=-Wall -O6 -fomit-frame-pointer
+CCO_FREEBSD=-Wall -O3 -fomit-frame-pointer -Wno-format-truncation
 CCOC_FREEBSD=-c
 
 # --------------------------------------------------------------------------
@@ -126,7 +126,7 @@ CCOC_FREEBSD=-c
 #
 
 CC_OPENBSD=cc
-CCO_OPENBSD=-std=c99 -Wall -03 -fomit-frame-pointer -Wno-format-truncation
+CCO_OPENBSD=-std=c99 -Wall -O3 -fomit-frame-pointer -Wno-format-truncation
 CCOC_OPENBSD=-c
 
 # --------------------------------------------------------------------------
@@ -135,7 +135,7 @@ CCOC_OPENBSD=-c
 # Thanks to Cyrus Durgin for this entry.
 
 CC_DIGITALALPHA=gcc
-CCO_DIGITALALPHA=-Wall -O6 -fomit-frame-pointer -DHAVE_OSYNC -DHAVE_STRCASECMP
+CCO_DIGITALALPHA=-Wall -O3 -fomit-frame-pointer -DHAVE_OSYNC -DHAVE_STRCASECMP
 CCOC_DIGITALALPHA=-c
 
 #
