@@ -13,7 +13,7 @@ I'm maintaining this fork to keep the software usable on macOS (as good as I can
 
 - **Added `macos` target** to the Makefile with compiler flags for macOS (tested on macOS 26.5 Tahoe). Includes feature detection defines matching the existing Linux target where applicable (`HAVE_DEV_URANDOM`, `HAVE_STRCASECMP`, `HAVE_RANDOM`, `HAVE_OSYNC`).
 - **Added `macosppc` target** for macOS 10.3 Panther on PowerPC (G3/G4). Defines `O_DIRECTORY` to `0`, omits `-DHAVE_OSYNC`, and drops `-pipe` to reduce memory pressure.
-- **Added `openbsd` target** using native `cc`. Format-truncation warnings suppressed with `-Wno-format-truncation` (sorry); OpenBSD linker security warnings (`strcpy`/`sprintf`) are advisory.
+- **Added `openbsd` target** using `cc` (tested on OpenBSD 7.9) with `-O2` not `-O3`.
 
 ### Portability
 

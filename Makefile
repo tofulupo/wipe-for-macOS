@@ -126,7 +126,7 @@ CCOC_FREEBSD=-c
 #
 
 CC_OPENBSD=cc
-CCO_OPENBSD=-std=c99 -Wall -O3 -fomit-frame-pointer -Wno-format-truncation
+CCO_OPENBSD=-Wall -O2 -pipe -fomit-frame-pointer -fno-common $(CFLAGS) $(LDFLAGS) $(CPPFLAGS)
 CCOC_OPENBSD=-c
 
 # --------------------------------------------------------------------------
