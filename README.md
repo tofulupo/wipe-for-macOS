@@ -20,7 +20,7 @@ I'm maintaining this fork to keep the software usable on macOS (as good as I can
 - **Changed `-O6` to `-O3` across all targets** — `-O6` was never a documented standard?; `-O3` is the fallback, I make it explicit.
 - **Unified install target** — replaced OS-specific install targets with a single POSIX-compliant `install` target using `PREFIX`, `BINDIR`, and `MANDIR` variables. Drops hardcoded `-o root -g root` ownership flags, eliminating the need for Debian's `050_rootless.patch`. macOS users install with `make PREFIX=/usr/local install`.
 - **POSIX-compliant install** — no GNU-isms; works with native `make` and `install` on SunOS, AIX, Solaris, FreeBSD, and other legacy Unix.
-- **Modified `version.h` generation** — replaced the non-POSIX `which` command with `command -v` and added a guard for building outside a git repository (tarball builds).
+- **Modified `version.h` generation** — added a guard for building outside a git repository (tarball builds).
 
 ### Documentation & Patches
 
@@ -113,11 +113,11 @@ All original targets remain unchanged and should work as before:
 | OpenIndiana | Hipster 2026.04 | x86_64 | Tested |
 | Solaris | 9 (s9_58shwp13) | SPARC32 | Tested |
 | FreeBSD | 15.1 | ARM64 | Tested |
+| FreeBSD | 2.2.6-RELEASE | i386 | Tested (fails) |
 | OpenBSD | 7.9 | ARM64 | Tested |
 | SunOS | 5.5.1 | — | Not Tested |
 | Solaris | 2.6 | SPARC | Not Tested |
 | Solaris | 2.6 | x86 | Not Tested |
-| FreeBSD | 2.2.6-STABLE | — | Not Tested |
 | AIX | 4.2 | POWER | Not Tested |
 | Digital/Compaq UNIX | Alpha | Alpha | Not Tested |
 
